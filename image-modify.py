@@ -26,7 +26,7 @@ client = OpenAI()
 prompt = Path("image-modify-prompt.txt").read_text()
 
 # put what kind of price you want to spend
-COST_CHOICE: Cost = COSTS_IDK_CENTS
+COST_CHOICE: Cost = COSTS_25_CENTS
 with open("image.jpg", "rb") as f:
     response = client.images.edit(
         model=COST_CHOICE.model,
