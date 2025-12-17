@@ -8,7 +8,7 @@ import re
 from datetime import datetime
 
 Size = Literal["auto", "1024x1024", "1536x1024", "1024x1536", "256x256", "512x512", "1792x1024", "1024x1792"]
-ModelType = Literal["dall-e-2", "dall-e-3", "gpt-image-1", "gpt-image-1-mini"]
+ModelType = Literal["dall-e-2", "dall-e-3", "gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"]
 QualityType = Literal["standard", "low", "medium", "high", "auto"]
 
 @dataclass(frozen=True)
@@ -16,7 +16,7 @@ class Cost:
     model: ModelType
     quality: QualityType | None
 
-COSTS_25_CENTS = Cost(model="gpt-image-1", quality="high")
+COSTS_25_CENTS = Cost(model="gpt-image-1.5", quality="high")
 COSTS_4_CENTS = Cost(model="gpt-image-1", quality="medium")
 COSTS_1_CENTS = Cost(model="gpt-image-1", quality="low")
 
@@ -26,7 +26,7 @@ client = OpenAI()
 prompt = Path("image-modify-prompt.txt").read_text()
 
 # put what kind of price you want to spend
-COST_CHOICE: Cost = COSTS_4_CENTS
+COST_CHOICE: Cost = COSTS_IDK_CENTS
 with open("image.jpg", "rb") as f:
     response = client.images.edit(
         model=COST_CHOICE.model,
