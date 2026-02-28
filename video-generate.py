@@ -19,7 +19,7 @@ prompt = Path("video-generate-prompt.txt").read_text()
 video = openai.videos.create(
     model=model,
     prompt=prompt,
-    seconds="8",
+    seconds="12",
     size=image_size,
 )
 

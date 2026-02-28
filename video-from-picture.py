@@ -16,11 +16,11 @@ image_size: ImageSize = "720x1280"
 openai = OpenAI()
 
 prompt = Path("video-from-picture-prompt.txt").read_text()
-with open("image.png", "rb") as image_file:
+with open("phillip-fighting-vid.png", "rb") as image_file:
     video = openai.videos.create(
         model=model,
         prompt=prompt,
-        seconds="4",
+        seconds="12",
         input_reference=image_file,
         size=image_size,
     )
@@ -29,6 +29,17 @@ print("Video generation started:", video)
 
 progress = getattr(video, "progress", 0)
 bar_length = 30
+
+date_str = re.sub(re.compile(r"\D+"), "_", datetime.now().isoformat())
+
+with open(f"{date_str}_prompt.txt", "w") as f:
+    f.write(prompt)
+    f.write("\n")
+    f.write(model)
+    f.write("\n")
+    f.write(image_size)
+    f.write("\n")
+    f.write(video.id)
 
 while video.status in ("in_progress", "queued"):
     # Refresh status
@@ -45,15 +56,6 @@ while video.status in ("in_progress", "queued"):
 
 # Move to next line after progress loop
 sys.stdout.write("\n")
-
-date_str = re.sub(re.compile(r"\D+"), "_", datetime.now().isoformat())
-
-with open(f"{date_str}_prompt.txt", "w") as f:
-    f.write(prompt)
-    f.write("\n")
-    f.write(model)
-    f.write("\n")
-    f.write(image_size)
 
 if video.status == "failed":
     message = getattr(

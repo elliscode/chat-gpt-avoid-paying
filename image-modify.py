@@ -27,12 +27,12 @@ prompt = Path("image-modify-prompt.txt").read_text()
 
 # put what kind of price you want to spend
 COST_CHOICE: Cost = COSTS_25_CENTS
-with open("image.jpg", "rb") as f:
+with open("phillip.png", "rb") as f:
     response = client.images.edit(
         model=COST_CHOICE.model,
         image=f,          # pass the file object directly
         prompt=prompt,
-        size="1536x1024",
+        size="1024x1536",
         quality=COST_CHOICE.quality,
     )
 

@@ -32,7 +32,7 @@ COST_CHOICE: Cost = COSTS_25_CENTS
 image_gen_args: dict[str, Any] = {
     "model": COST_CHOICE.model,
     "prompt": prompt,
-    "size": "1024x1024",
+    "size": "1024x1536",
 }
 if image_gen_args["model"] != COSTS_2_CENTS_DALL_E.model:
     image_gen_args["quality"] = COST_CHOICE.quality
